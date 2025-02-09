@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Details</title>
+</head>
+<body>
+
+<h2>About user</h2>
+
+<p>ID: <span th:text="${user.getId()}"></span></p>
+<p>Firstname: <span th:text="${user.getFirstName()}"></span></p>
+<p>Lastname: <span th:text="${user.getLastName()}"></span></p>
+<p>Email: <span th:text="${user.getEmail()}"></span></p>
+
+<a href="/users">back to list</a>
+
+</body>
+</html>
