@@ -7,7 +7,7 @@ import web.dao.UserDao;
 import web.exception.UserNotFoundException;
 import web.model.User;
 
-import javax.persistence.EntityNotFoundException;
+
 import java.util.List;
 
 @Service
