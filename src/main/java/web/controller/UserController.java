@@ -3,7 +3,6 @@ package web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,18 +10,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import web.exception.UserNotFoundException;
 import web.model.User;
 import web.service.UserService;
-import web.service.UserServiceImpl;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class UserController {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     @Autowired
-    public UserController(UserServiceImpl userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
@@ -33,12 +29,12 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping("/users/show")
+    @GetMapping("/users/details")
     public String showUserById(@RequestParam("id") long id, Model model) {
         try {
             User user = userService.getUserById(id);
             model.addAttribute("user", user);
-            return "user-details";
+            return "details";
         } catch (UserNotFoundException e) {
             model.addAttribute("errorMessage", e.getMessage());
             return "error";
@@ -48,7 +44,7 @@ public class UserController {
     @GetMapping("/users/add")
     public String addUserForm(Model model) {
         model.addAttribute("user", new User());
-        return "add-user";
+        return "add";
     }
 
     @PostMapping("/users/add")
@@ -62,7 +58,7 @@ public class UserController {
         try {
             User user = userService.getUserById(id);
             model.addAttribute("user", user);
-            return "update-user";
+            return "update";
         } catch (UserNotFoundException e) {
             model.addAttribute("errorMessage", e.getMessage());
             return "error";

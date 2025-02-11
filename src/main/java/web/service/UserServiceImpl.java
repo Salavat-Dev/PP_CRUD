@@ -30,11 +30,12 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional(readOnly = true)
     public User getUserById(long id) {
-        User user = userDao.getUserById(id);
-        if (user == null) {
+        try {
+            User user = userDao.getUserById(id);
+            return user;
+        } catch (UserNotFoundException e) {
             throw new UserNotFoundException("User with id " + id + " not found");
         }
-        return user;
     }
 
     @Override
@@ -49,10 +50,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void deleteUser(long id) {
-        User user = userDao.getUserById(id);
-        if (user == null) {
+        try {
+            User user = userDao.getUserById(id);
+            userDao.deleteUser(id);
+        } catch (UserNotFoundException e) {
             throw new UserNotFoundException("User with id " + id + " not found");
         }
-        userDao.deleteUser(id);
+
     }
 }

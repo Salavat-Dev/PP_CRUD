@@ -2,6 +2,7 @@ package web.dao;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import web.exception.UserNotFoundException;
 import web.model.User;
 
 import javax.persistence.EntityManager;
@@ -28,7 +29,7 @@ public class UserDaoImpl implements UserDao {
                     .setParameter("id", id)
                     .getSingleResult();
         } catch (EntityNotFoundException | NoResultException e) {
-            return null;
+            throw new UserNotFoundException(e.getMessage());
         }
     }
 
