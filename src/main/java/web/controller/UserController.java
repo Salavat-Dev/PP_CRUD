@@ -73,7 +73,7 @@ public class UserController {
 
     @GetMapping("/users/delete")
     public String deleteUser(@RequestParam("id") long id, Model model) {
-        try{
+        try {
             userService.deleteUser(id);
             return "redirect:/users";
         } catch (UserNotFoundException e) {
